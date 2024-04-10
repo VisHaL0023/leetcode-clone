@@ -1,7 +1,18 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
+import { authModalState } from "@/atoms/authModalAtom";
+import { useSetRecoilState } from "recoil";
 
 function HomePage() {
+    const setAuthModalState = useSetRecoilState(authModalState);
+    const handleClick = () => {
+        setAuthModalState((prev) => ({
+            ...prev,
+            isOpen: true,
+            type: "register",
+        }));
+    };
+
     return (
         <div className="flex flex-col">
             {/* A New Way to Learn */}
@@ -20,7 +31,10 @@ function HomePage() {
                             your skills, expand your knowledge and prepare for
                             technical interviews.
                         </p>
-                        <button className="bg-[#1da09c] hover:bg-[#17807D] opacity-90 font-light w-[152px] rounded-full py-2 mx-auto flex items-center justify-center pl-1">
+                        <button
+                            onClick={handleClick}
+                            className="bg-[#1da09c] hover:bg-[#17807D] opacity-90 font-light w-[152px] rounded-full py-2 mx-auto flex items-center justify-center pl-1"
+                        >
                             <div>Create Account</div>
                             <ChevronRightIcon className="h-3 ml-1 mt-[3px]" />
                         </button>
