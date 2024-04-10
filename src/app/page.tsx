@@ -1,7 +1,19 @@
+import Footer from "@/pages/Footer";
+import HomePage from "@/pages/HomePage";
+import Navbar from "@/pages/NavBar";
+
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            Vishal
-        </main>
+        <>
+            <div className="relative overflow-x-hidden">
+                <div className="relative z-20">
+                    <Navbar />
+                </div>
+                <HomePage />
+                <div className="relative z-20 bg-white">
+                    <Footer />
+                </div>
+            </div>
+        </>
     );
 }
