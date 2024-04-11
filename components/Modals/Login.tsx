@@ -4,14 +4,20 @@ import { useSetRecoilState } from "recoil";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
     const setAuthModalState = useSetRecoilState(authModalState);
+    const [inputs, setInputs] = useState({ email: "", password: "" });
+    const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+
     const handleClick = (type: "login" | "register" | "forgotPassword") => {
         setAuthModalState((prev) => ({ ...prev, type }));
     };
-    const [inputs, setInputs] = useState({ email: "", password: "" });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,15 +25,28 @@ const Login: React.FC<LoginProps> = () => {
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoading(true);
+        const { email, password } = inputs;
+
         if (!inputs.email || !inputs.password)
             return alert("Please fill all fields");
         try {
+            await signIn("credentials", {
+                email,
+                password,
+                redirect: false,
+                callbackUrl: "/",
+            });
+            toast.success("Logged in");
+            router.push("/");
         } catch (error: any) {
             toast.error(error.message, {
                 position: "top-center",
                 autoClose: 3000,
                 theme: "dark",
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -51,7 +70,7 @@ const Login: React.FC<LoginProps> = () => {
                         id="email"
                         className="
             border-2 outline-none sm:text-sm rounded-lg focus:ring-gray-500 focus:border-gray-900 block w-full p-2.5
-            bg-gray-50 border-gray-400 placeholder-gray-400 text-white
+            bg-gray-50 border-gray-400 placeholder-gray-400 text-black
         "
                         placeholder="name@company.com"
                     />
@@ -70,7 +89,7 @@ const Login: React.FC<LoginProps> = () => {
                         id="password"
                         className="
                     border-2 outline-none sm:text-sm rounded-lg focus:ring-gray-500 focus:border-gray-900 block w-full p-2.5
-                    bg-gray-50 border-gray-400 placeholder-gray-400 text-white
+                    bg-gray-50 border-gray-400 placeholder-gray-400 text-black
         "
                         placeholder="********"
                     />
@@ -81,8 +100,9 @@ const Login: React.FC<LoginProps> = () => {
                     className="w-full text-white focus:ring-blue-300 font-medium rounded-lg
                 text-sm px-5 py-2.5 text-center bg-brand-orange hover:bg-brand-orange-s
             "
+                    disabled={isLoading}
                 >
-                    Log In{" "}
+                    {isLoading ? "Log in...." : "Log In"}
                 </button>
             </div>
             <div className="space-y-3 mt-3">

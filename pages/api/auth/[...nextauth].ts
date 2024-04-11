@@ -21,11 +21,11 @@ export const authOptions: AuthOptions = {
             name: "Credentials",
             credentials: {
                 email: {
-                    label: "Email",
-                    type: "text",
+                    label: "email",
+                    type: "email",
                 },
                 password: {
-                    label: "Password",
+                    label: "password",
                     type: "passord",
                 },
             },
@@ -40,13 +40,13 @@ export const authOptions: AuthOptions = {
                     },
                 });
 
-                if (!user || !user.hashedPassword) {
+                if (!user || !user.password) {
                     throw new Error("Email does not exist");
                 }
 
                 const isCorrectPassword = await compare(
                     credentials.password,
-                    user.hashedPassword
+                    user.password
                 );
 
                 if (!isCorrectPassword) {

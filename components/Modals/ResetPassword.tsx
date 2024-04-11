@@ -31,7 +31,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     className="border-2 outline-none sm:text-sm rounded-lg focus:ring-gray-500 focus:border-gray-900 block w-full p-2.5
-                    bg-gray-50 border-gray-400 placeholder-gray-400 text-white"
+                    bg-gray-50 border-gray-400 placeholder-gray-400 text-black"
                     placeholder="name@company.com"
                 />
             </div>
