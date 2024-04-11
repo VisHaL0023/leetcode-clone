@@ -67,7 +67,7 @@ function HomePage() {
                             <ChevronRightIcon className="h-3 ml-1 mt-[4px]" />
                         </button>
                     </div>
-                    <div className="max-w-md ">
+                    <div className="max-w-md ml-16">
                         <img src="WebPages.png" alt="web-pages" />
                     </div>
                 </div>
@@ -78,10 +78,10 @@ function HomePage() {
                 id="product"
             >
                 <div className="absolute h-[800px] w-[150%] top-[950px] -rotate-12 z-0 bg-[#F7F9FC] overflow-hidden"></div>
-                <div className="flex w-11/12 max-w-6xl justify-between text-left z-20">
+                <div className="lg:flex lg:flex-row w-11/12 max-w-6xl lg:justify-between lg:text-left z-20 md:flex md:flex-col">
                     <div className="flex flex-col space-y-5 max-w-lg mt-5 ml-5">
                         <div className="w-[151px] mb-2">
-                            <img src="QuestionsIcon.png" alt="" />
+                            <img src="QuestionsIcon.png" alt="question image" />
                         </div>
                         <h2 className="text-2xl text-[#259AF3] font-semibold mr-auto">
                             Questions, Community & Contests
@@ -98,7 +98,7 @@ function HomePage() {
                             <ChevronRightIcon className="h-3 ml-1 mt-[4px]" />
                         </button>
                     </div>
-                    <div className="border-l-[2px] border-white w-1/2">
+                    <div className="border-l-[2px] border-white lg:w-1/2">
                         <div className="flex flex-col space-y-5 max-w-lg my-5 ml-14">
                             <div className="w-[107px] mb-2">
                                 <img src="CompaniesIcon.png" alt="" />

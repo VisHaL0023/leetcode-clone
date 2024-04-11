@@ -23,10 +23,10 @@ const AuthModal: React.FC<AuthModalProps> = () => {
                         <div className="flex justify-end p-2">
                             <button
                                 type="button"
-                                className="bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-500 hover:text-white text-white"
+                                className="border border-gray-400 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-400 hover:text-white text-black"
                                 onClick={closeModal}
                             >
-                                <XMarkIcon className="h-5 w-5" />
+                                <XMarkIcon className="h-4 w-4" />
                             </button>
                         </div>
                         {authModal.type === "login" ? (

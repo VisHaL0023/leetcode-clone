@@ -2,6 +2,8 @@ import { authModalState } from "@/atoms/authModalAtom";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 type SignupProps = {};
 
@@ -36,7 +38,7 @@ const Signup: React.FC<SignupProps> = () => {
     };
 
     return (
-        <form className="space-y-6 px-6 pb-4" onSubmit={handleRegister}>
+        <form className="space-y-5 px-6 pb-4" onSubmit={handleRegister}>
             <h3 className="text-2xl font-medium text-black">
                 Register to LeetCode
             </h3>
@@ -106,6 +108,21 @@ const Signup: React.FC<SignupProps> = () => {
             >
                 Register
             </button>
+
+            <div className="flex flex-row items-center gap-4 justify-center">
+                <div
+                    //   onClick={() => signIn('google', { callbackUrl: '/profiles' })}
+                    className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+                >
+                    <FcGoogle size={32} />
+                </div>
+                <div
+                    //   onClick={() => signIn('github', { callbackUrl: '/profiles' })}
+                    className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+                >
+                    <FaGithub size={32} />
+                </div>
+            </div>
 
             <div className="text-sm font-medium text-gray-600">
                 Already have an account?{" "}

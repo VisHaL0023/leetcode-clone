@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// User schema
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  image String?
+  email String? @unique
+  emailVerified DateTime?
+  password String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  likedProblemId String[] @db.ObjectId
+  likedProblem Problem[] @relation("like", fields: [likedProblemId], references: [id])
+
+  favoriteId String[] @db.ObjectId
+  favoriteProblem Problem[] @relation("favorite", fields: [favoriteId], references: [id])
+
+  dislikedProblemId String[] @db.ObjectId
+  dislikedProblem Problem[] @relation("dislike", fields: [dislikedProblemId], references: [id])
+
+
+  sessions Session[]
+  problems Problem[]
+  accounts Account[]
+  comment Comment[]
+}
+
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String   @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.String
+  access_token       String?  @db.String
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.String
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String @unique
+  userId String @db.ObjectId
+  expires DateTime
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Problem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  problemNumber Int
+  category      String
+  title         String
+  difficulty    Difficulty
+  totalLikes    Int
+  totalDislikes Int
+
+  likeId String[] @db.ObjectId
+  like User[] @relation("like", fields: [likeId], references: [id])
+
+  favoriteId String[] @db.ObjectId
+  favorite User[] @relation("favorite", fields: [favoriteId], references: [id])
+
+  dislikeId String[] @db.ObjectId
+  dislike User[] @relation("dislike", fields: [dislikeId], references: [id])
+
+  comment Comment[]
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+// Comment schema
+model Comment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userName     String
+  body  String
+  commentLikes Int
+  createdAt DateTime @default(now())
+
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id], onDelete:Cascade)
+
+  problemId String @db.ObjectId
+  problem Problem @relation(fields: [problemId], references: [id])
+
+}
