@@ -1,9 +1,9 @@
 "use client";
-import Footer from "./pages/Footer";
+import Footer from "../components/pages/Footer";
 import { authModalState } from "../atoms/authModalAtom";
 import { useRecoilValue } from "recoil";
 import AuthModal from "../components/Modals/AuthModal";
-import HomePage from "./pages/HomePage";
+import HomePage from "../components/pages/HomePage";
 import Navbar from "../components/Navbar/NavBar";
 import "react-toastify/dist/ReactToastify.css";
 

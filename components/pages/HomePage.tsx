@@ -130,7 +130,10 @@ function HomePage() {
                 <div className="flex w-11/12 max-w-6xl justify-center text-center">
                     <div className="flex flex-col space-y-5 max-w-[940px] mt-14">
                         <div className="w-16 mb-2 mx-auto">
-                            <img src="DeveloperIcon.png" alt="" />
+                            <img
+                                src="DeveloperIcon.png"
+                                alt="developer image"
+                            />
                         </div>
                         <h2 className="text-2xl text-[#1da09c] font-semibold mx-auto">
                             Developer
